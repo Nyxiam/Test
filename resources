@@ -1,0 +1,56 @@
+
+public float serverParts;
+
+# This variable is updated from the EpicUpgradeScript, much like serverParts above.
+# basically will duplicate whatever the value of 'cost' is
+#         eg. (from EpicUpgradeScript) epicResourceManager.upgradeCost = cost;
+#                                      epicResourceManager.UpdateCurrentParts();
+public float upgradeCost;
+
+#
+# serverParts is modified from the upgrade script
+#
+# When button is pressed to upgrade a stat, that value needs to be updated in both current and
+# total parts. 
+#
+# The issue is separating these values.
+#
+# Code needs to be something similar to:
+#
+# Common upgrade is purchased, 1 serverPart is added to both current AND total parts.
+#
+# Epic upgrade is purchased, the cost is subtracted from the current total ONLY
+#
+#### Are functions the best way to handle this? Can this be tracked just from Update()?
+#        Seems function is the best option. How to modify elements within from different script?
+#          Probably need a separate function that calls CurrentParts() and updates accordingly.
+#            This approach won't be viable because there will be multiple
+
+
+public void Update()
+{
+    codeToUpdateDisplay.ui.text blah blah UpdateCurrentParts();
+}
+
+public float CurrentParts()
+{
+    float currentServerParts = 0;
+    currentServerParts = currentServerParts + serverParts;
+    return currentServerParts
+}
+
+public float TotalParts()
+{
+    float totalServerParts = 0;
+    totalServerParts = totalServerParts + serverParts;
+    return totalServerParts
+}
+
+
+# This gets called from the EpicUpgradeScript.cs on the button.
+public float UpdateCurrentParts()
+{
+    float updatedCurrentParts = 0;
+    updatedCurrentParts = CurrentParts() - upgradeCost;
+    return updatedCurrentParts;
+}
